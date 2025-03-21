@@ -29,6 +29,7 @@ $$\begin{pmatrix}
 \Gamma_{21} & \Gamma_{22} & \Gamma_{23} \\
 \Gamma_{31} & \Gamma_{32} & \Gamma_{33}
 \end{pmatrix}$$
+
 where $\Gamma_{ij}$ is the rate of the transition $i\rightarrow j$. The array should always be antidiagonal, since $\Gamma_{ii} = 0$. The file will be saved in the format 
 
 $$\begin{pmatrix}
