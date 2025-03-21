@@ -23,6 +23,7 @@ Returns:
  - `rates` (2darray of floats): array of rates (in $s^{-1}$) of each possible transition between states in `states` array. Will be of size $s\times s$ for $s$ states. 
 
 The order in which the rates are given corresponds to the order that the states are in. For example for 3 states $1,2,3$, the rate array will be
+
 $$\begin{pmatrix}
 \Gamma_{11} & \Gamma_{12} & \Gamma_{13} \\
 \Gamma_{21} & \Gamma_{22} & \Gamma_{23} \\
