@@ -20,7 +20,7 @@ def make_transrate_LUT(atom_type, n_max = 80, l_max = 5, temp = 350, save = True
         temp (float, optional): temperature in K. Affects the rates of transitions affected by blackbody radiation. 
             Default is 350 K. 
         save (bool, optional): whether the calculated array should be saved automatically. 
-            Filename is "Transition_Rates_nmax={n_max}\_temp={temp}K_{atom_type}.csv". Default is `True`.
+            Filename is "Transition_Rates_={n_max}\_temp={temp}K_{atom_type}.csv". Default is `True`.
         printing (bool, optional): Enables print statements to monitor progress. Default is `False`.
     
     Returns:
@@ -38,7 +38,7 @@ def make_transrate_LUT(atom_type, n_max = 80, l_max = 5, temp = 350, save = True
     states = atom.extraLevels[:]
     ## Add the ground state
     states.append(ground_state)
-    ## Now add all states up to n = nmax
+    ## Now add all states up to n = 
     for n in range(atom.groundStateN,int(n_max+1)):
         for l in range(0,int(l_max)):
             if l==0:
@@ -70,23 +70,23 @@ def make_transrate_LUT(atom_type, n_max = 80, l_max = 5, temp = 350, save = True
         print('\r')
     if save:
         table = numpy.hstack((states, transitionRates))
-        numpy.savetxt('Transition_Rates_nmax={}_temp={}K_{}.csv'.format(int(n_max), int(temp), atom_type), table, delimiter = ',')
+        numpy.savetxt('Transition_Rates_={}_temp={}K_{}.csv'.format(int(n_max), int(temp), atom_type), table, delimiter = ',')
     return states, transitionRates
 
-def get_rates_from_LUT(path=None, nmax = 100, atom_type = 'Cs', temp = 350):
+def get_rates_from_LUT(path=None, n_max = 80, atom_type = 'Cs', temp = 350):
     '''Loads the pre-calculated look-up table of transition rates from file for 
         use in the spectrum simulation'''
     if path != None:
-        file = path+'\\Transition_Rates_nmax={:.0f}_temp={:.0f}K_'.format(nmax, temp)
+        file = path+'\\Transition_Rates_={:.0f}_temp={:.0f}K_'.format(n_max, temp)
     else:
-        file = 'Transition_Rates_nmax={:.0f}_temp={:.0f}K_'.format(nmax, temp)
+        file = 'Transition_Rates_={:.0f}_temp={:.0f}K_'.format(n_max, temp)
     filename = file+atom_type+'.csv'
     LUT = numpy.genfromtxt(filename, delimiter = ',')
     states = LUT[:,:3]
     rates = LUT[:,3:]
     return states, rates
 
-def calculate_spectrum(state, path_to_LUT = None, atom_type = 'Cs', temp = 350, nmax = 80, iters = 50000, 
+def calculate_spectrum(state, path_to_LUT = None, atom_type = 'Cs', temp = 350, n_max = 80, iters = 50000, 
 spectrum_range = (400,750), spectrum_resolution = 0.5, give_paths = False, give_pops = False):
     '''
     Simulates the fluorescence from a specified atomic state via a Monte-Carlo approach
@@ -100,7 +100,7 @@ spectrum_range = (400,750), spectrum_resolution = 0.5, give_paths = False, give_
             Rb is Rubidium 87.
         temp (float, optional): temperature of the atomic ensemble in Kelvin. 
             *Must* match the temperature used to create the look-up-table. Default is 350 K.
-        nmax (float, optional): maximum value of n to be considered. 
+        n_max (float, optional): maximum value of n to be considered. 
             *Must* match the value of n_max used to create the look-up-table. Default is 80.
         iters (float, optional): number of iterations to run the simulation for. 
             Default is 50,000 (5e4).
@@ -141,7 +141,7 @@ spectrum_range = (400,750), spectrum_resolution = 0.5, give_paths = False, give_
             occurred in the simulation.'''
     
     (n1, l1, j1) = state
-    states, transitionRates = get_rates_from_LUT(path_to_LUT, nmax = nmax, atom_type = atom_type, temp = temp)
+    states, transitionRates = get_rates_from_LUT(path_to_LUT, n_max = n_max, atom_type = atom_type, temp = temp)
     spdf = ['S', 'P', 'D', 'F', 'G', 'H']
     atom_dict = {'Cs':Caesium(), 'Rb87':Rubidium87()}
     atom = atom_dict[atom_type]
