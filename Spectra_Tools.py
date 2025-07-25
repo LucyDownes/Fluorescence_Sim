@@ -56,7 +56,7 @@ def make_transrate_LUT(atom_type, n_max = 80, l_max = 5, temp = 350, save = True
         print('Max. n: {:.0f}'.format(n_max))
         print('Total states: {}'.format(int(len(states))))
 
-    transitionRates = np.zeros((len(states),len(states)))
+    transitionRates = numpy.zeros((len(states),len(states)))
     for i in range(len(states)):
         if printing:
             print('Calculating transitions for state {:.0f} of {:.0f}'.format(i+1, len(states)), end = '\r')
