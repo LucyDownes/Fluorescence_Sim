@@ -70,16 +70,16 @@ def make_transrate_LUT(atom_type, n_max = 80, l_max = 5, temp = 350, save = True
         print('\r')
     if save:
         table = numpy.hstack((states, transitionRates))
-        numpy.savetxt('Transition_Rates_={}_temp={}K_{}.csv'.format(int(n_max), int(temp), atom_type), table, delimiter = ',')
+        numpy.savetxt('Transition_Rates_nmax={}_temp={}K_{}.csv'.format(int(n_max), int(temp), atom_type), table, delimiter = ',')
     return states, transitionRates
 
 def get_rates_from_LUT(path=None, n_max = 80, atom_type = 'Cs', temp = 350):
     '''Loads the pre-calculated look-up table of transition rates from file for 
         use in the spectrum simulation'''
     if path != None:
-        file = path+'\\Transition_Rates_={:.0f}_temp={:.0f}K_'.format(n_max, temp)
+        file = path+'\\Transition_Rates_nmax={:.0f}_temp={:.0f}K_'.format(n_max, temp)
     else:
-        file = 'Transition_Rates_={:.0f}_temp={:.0f}K_'.format(n_max, temp)
+        file = 'Transition_Rates_nmax={:.0f}_temp={:.0f}K_'.format(n_max, temp)
     filename = file+atom_type+'.csv'
     LUT = numpy.genfromtxt(filename, delimiter = ',')
     states = LUT[:,:3]
