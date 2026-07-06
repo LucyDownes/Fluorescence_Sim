@@ -7,7 +7,7 @@ All of these codes are built on ARC [(Alkali Rydberg Calculator)](https://arc-al
 ## Creating Look-Up Tables (LUTs)
 
 Both methods rely on some pre-calculated look-up tables (LUTs) of transition rates and transition wavelengths between all possible pairs of atomic states in a given range (maximum $n$ and $l$ values).
-If the files are not found the code will generate them automatically using the default values ($n_{\rm{max}}=80$, $l_{\rm{max}} = 5$, temperature = $350\,\rm{K}$). Note that it can take some time to run (several minutes) depending on parameters.
+If the files are not found the code will generate them automatically using the default values ($n_{\rm{max}}=80$, $l_{\rm{max}} = 5$, temperature = $350 \rm{K}$). Note that it can take some time to run (several minutes) depending on parameters.
 The higher the principal quantum number that is considered the more accurate the simulation will be, however this comes at an increase in time to create the LUTs. The bare minimum needed would be to set `n_max` to be a little higher than the principal quantum number of the state you are evaluating the spectrum for. So if you are driving to the $14\rm{D}_{3/2}$ state, setting `n_max = 16` would give you a reasonable estimate. However, since this table only needs to be evaluated once, it is worth going to higher $n$ (80 or more) to save time overall. 
 
 ### Transition Rates
